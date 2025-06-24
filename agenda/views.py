@@ -26,3 +26,7 @@ def contato_criar(request):
                       'agenda/contato_form.html',
                       {'form' : form,
                       'titulo_pagina': 'Adicionar Contato'})
+
+
+def contato_teste(request):
+    return HttpResponse('<h1>Teste</h1>')
