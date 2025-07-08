@@ -1,6 +1,6 @@
 #agenda/views.py
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Contato
 from .forms import ContatoForm
 
@@ -30,3 +30,8 @@ def contato_criar(request):
 
 def contato_teste(request):
     return HttpResponse('<h1>Teste</h1>')
+
+def contato_detalhe(request, pk):
+    contato = get_object_or_404(Contato, pk=pk)
+
+    return render(request, 'agenda/contato_detalhe.html', {'contato' : contato})
