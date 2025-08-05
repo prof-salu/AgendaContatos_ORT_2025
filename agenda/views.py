@@ -35,3 +35,19 @@ def contato_detalhe(request, pk):
     contato = get_object_or_404(Contato, pk=pk)
 
     return render(request, 'agenda/contato_detalhe.html', {'contato' : contato})
+
+
+def contato_editar(request, pk):
+    contato = get_object_or_404(Contato, pk=pk)
+    if request.method == 'POST':
+        form = ContatoForm(request.POST, instance=contato)
+        if form.is_valid():
+            form.save()
+            return redirect('agenda:contato_detalhe', pk=contato.pk)
+    else:
+        form = ContatoForm(instance=contato)
+
+    return render(request,
+                  'agenda/contato_form.html',
+                  {'form' : form, 'contato' : contato, 'titulo_pagina' : 'Editar'})
+
