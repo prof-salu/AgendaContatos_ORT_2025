@@ -15,6 +15,8 @@
   <p> <strong>Criado em:</strong>
           {{ contato.create_at|date:"d/m/Y" }}</p>
 
+
+  <a href="{% url 'agenda:contato_editar' contato.pk %}">Editar</a>
   <a href="{% url 'agenda:contato_lista' %}">Voltar</a>
 
 </body>
