@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmar exclusão</title>
+</head>
+<body>
+  <h1>Confirmar exclusão</h1>
+
+  <p>Tem certeza de que deseja excluir o contato **"{{ contato.nome }}"**?</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Sim, excluir</button>
+  </form>
+
+  <a href="{% url 'agenda:contato_detalhe' contato.pk %}">Cancelar</a>
+</body>
+</html>
