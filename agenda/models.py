@@ -8,5 +8,7 @@ class Contato(models.Model):
     data_de_nascimento = models.DateField(blank=True, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
 
+    foto = models.ImageField(upload_to='fotos_contatos/', blank=True, null=True)
+
     def __str__(self):
         return f'{self.nome} [{self.email}]'

@@ -16,16 +16,16 @@ def contato_lista(request):
 
 def contato_criar(request):
     if request.method == 'POST':
-        form = ContatoForm(request.POST)
+        form = ContatoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('agenda:contato_lista')
     else:
         form = ContatoForm()
-        return render(request,
-                      'agenda/contato_form.html',
-                      {'form' : form,
-                      'titulo_pagina': 'Adicionar Contato'})
+    return render(request,
+                  'agenda/contato_form.html',
+                  {'form' : form,
+                  'titulo_pagina': 'Adicionar Contato'})
 
 
 def contato_teste(request):
@@ -40,7 +40,7 @@ def contato_detalhe(request, pk):
 def contato_editar(request, pk):
     contato = get_object_or_404(Contato, pk=pk)
     if request.method == 'POST':
-        form = ContatoForm(request.POST, instance=contato)
+        form = ContatoForm(request.POST, request.FILES, instance=contato)
         if form.is_valid():
             form.save()
             return redirect('agenda:contato_detalhe', pk=contato.pk)
