@@ -10,6 +10,15 @@
 </head>
 <body>
     <div class="container">
+
+        {% if user.is_authenticated %}
+            <p>Olá, {{user.username}}!</p>
+            <a href="{% url 'logout' %}">Sair</a>
+        {% else %}
+            <p>Você não está logado</p>
+            <a href="{% url 'login' %}">Entrar</a>
+        {% endif %}
+
         <h1>Meus Contatos</h1>
         <a href="{% url 'agenda:contato_criar' %}" class="add-link">Adicionar Novo Contato</a>
         {% if contatos %}
