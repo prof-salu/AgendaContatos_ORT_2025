@@ -1,0 +1,44 @@
+<!-- agenda/templates/registration/login.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar</title>
+    <link rel="stylesheet" href="{% static 'agenda/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Entrar na Agenda</h1>
+
+        {% if form.errors %}
+            <p>Seu nome de usuário e senha não correspondem. Por favor, tente novamente.</p>
+        {% endif %}
+
+        {% if next %}
+            {% if user.is_authenticated %}
+            <p>Sua conta não tem acesso a esta página. Para continuar, por favor, logue com uma conta que tenha acesso.</p>
+            {% else %}
+            <p>Por favor, entre para ver esta página.</p>
+            {% endif %}
+        {% endif %}
+
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="form-field-container">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+            <div class="form-field-container">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+            </div>
+            <input type="submit" value="Entrar">
+            <input type="hidden" name="next" value="{{ next }}">
+        </form>
+
+        <a href="{% url 'register' %}" class="back-link">Novo usuário</a>
+    </div>
+</body>
+</html>

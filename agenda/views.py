@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Contato
 from .forms import ContatoForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm # Importe o formulário de criação de usuário
 
 #Biblioteca para escrever codigo html diretamente da view
 from django.http import HttpResponse
@@ -68,3 +69,14 @@ def contato_excluir(request, pk):
     return render(request,
                   'agenda/contato_confirma_exclusao.html',
                   {'contato' : contato})
+
+
+def register_user(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login') # Redireciona para a página de login após o registro
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})

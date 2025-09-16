@@ -10,33 +10,34 @@
 </head>
 <body>
     <div class="container">
-
         {% if user.is_authenticated %}
-            <p>Olá, {{user.username}}!</p>
-            <a href="{% url 'logout' %}">Sair</a>
+            <p>Olá, {{ user.username }}!</p>
+            <form action="{% url 'logout' %}" method="post" style="display: inline;">
+   {% csrf_token %}
+   <button type="submit" class="link-button">Sair</button>
+</form>
+
         {% else %}
-            <p>Você não está logado</p>
-            <a href="{% url 'login' %}">Entrar</a>
+            <p>Você não está logado.</p>
+            <a href="{% url 'login' %}">Entrar</a> | <a href="{% url 'register' %}">Registrar</a>
         {% endif %}
 
         <h1>Meus Contatos</h1>
+
         <a href="{% url 'agenda:contato_criar' %}" class="add-link">Adicionar Novo Contato</a>
+
         {% if contatos %}
             <ul>
                 {% for contato in contatos %}
                     <li>
-                        <div class="contact-info">
-                            <a href="{% url 'agenda:contato_detalhe' contato.pk %}">{{ contato.nome }} - {{contato.email}}</a>
-                        </div>
-                        <div class="action-links">
-                            <a href="{% url 'agenda:contato_editar' contato.pk %}" class="edit-link">Editar</a>
-                            <a href="{% url 'agenda:contato_excluir' contato.pk %}" class="delete-link">Excluir</a>
-                        </div>
+                        <a href="{% url 'agenda:contato_detalhe' pk=contato.pk %}">
+                            <span>{{ contato.nome }}</span>
+                        </a>
                     </li>
                 {% endfor %}
             </ul>
         {% else %}
-            <p class="empty-list">Nenhum contato cadastrado ainda. Clique em "Adicionar Novo Contato" para começar!</p>
+            <p class="empty-list">Nenhum contato cadastrado ainda. Adicione o seu primeiro!</p>
         {% endif %}
     </div>
 </body>
